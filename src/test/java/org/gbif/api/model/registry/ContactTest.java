@@ -8,6 +8,22 @@ import static org.junit.Assert.assertTrue;
 public class ContactTest {
 
   @Test
+  public void testCompleteName() throws Exception {
+    Contact c = new Contact();
+    assertEquals(c.getCompleteName(), "");
+
+    c.setFirstName("Jeff");
+    assertEquals(c.getCompleteName(), "Jeff");
+
+    c.setLastName("Smith");
+    assertEquals(c.getCompleteName(), "Jeff Smith");
+
+    c = new Contact();
+    c.setLastName("Fred Smith");
+    assertEquals(c.getCompleteName(), "Fred Smith");
+  }
+
+  @Test
   public void testUserId() throws Exception {
     Contact c = new Contact();
 
