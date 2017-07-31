@@ -18,7 +18,6 @@ import org.gbif.api.vocabulary.Country;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
@@ -156,10 +155,10 @@ public class Contact implements Address, LenientEquals<Contact> {
    * @return the non-empty parts of FirstName LastName or empty string if none
    */
   public String getCompleteName() {
-    return Stream.of(
-            Optional.ofNullable(StringUtils.trimToNull(firstName)),
-            Optional.ofNullable(StringUtils.trimToNull(lastName))
-    ).filter(Optional::isPresent).map(Optional::get).collect(Collectors.joining(" "));
+    return Stream.of(firstName, lastName)
+            .map(StringUtils::trimToNull)
+            .filter(java.util.Objects::nonNull)
+            .collect(Collectors.joining(" "));
   }
 
   public List<String> getPosition() {
